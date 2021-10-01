@@ -9,10 +9,8 @@ const authenticateUser = require("./middlewares/authenticateUser");
 
 const app = express();
 
-// middlewares
-app.use(express.urlencoded({ extened: true }));
-app.use(express.static("public"));
-app.set("view engine", "ejs");
+require('./startup/db')();
+require('./startup/middleware')(app);
 
 // cookie session
 app.use(
