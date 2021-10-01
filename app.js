@@ -9,21 +9,6 @@ const authenticateUser = require("./middlewares/authenticateUser");
 
 const app = express();
 
-// mongdb cloud connection is here
-mongoose
-  .connect("mongodb://localhost/databaseName", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log("connected to mongodb cloud! :)");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 // middlewares
 app.use(express.urlencoded({ extened: true }));
 app.use(express.static("public"));
@@ -123,7 +108,7 @@ app.get("/logout", authenticateUser, (req, res) => {
 });
 
 // server config
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server started listening on port: ${PORT}`);
 });
